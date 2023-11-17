@@ -1,6 +1,6 @@
 all: build
 
-build: server.o main.o graph.o server.h
+build: server.o main.o graph.o
 	g++ -o main $^
 
 run: build
