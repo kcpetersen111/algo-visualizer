@@ -1,8 +1,20 @@
 all: build
 
-build:
-	g++ -o server server.cpp
+build: server.o main.o graph.o
+	g++ -o main $^
 
 run: build
-	./server
+	./main
 
+server.o:
+	g++ -c server.cpp
+
+main.o:
+	g++ -c main.cpp
+
+graph.o:
+	g++ -c graph.cpp
+
+clean:
+	rm main
+	rm *.o
