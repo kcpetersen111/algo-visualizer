@@ -1,12 +1,6 @@
-#include "crow.h"
+#include "server.h"
 
-int main()
-{
-    crow::SimpleApp app;
-
-    CROW_ROUTE(app, "/")([](){
-        return "Hello world";
-    });
-
-    app.port(18080).run();
+int main() {
+    server();
+    return 0;
 }
