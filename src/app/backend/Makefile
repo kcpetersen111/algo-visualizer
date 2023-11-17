@@ -1,3 +1,5 @@
+HEADERFILES := graph.h algoriths/depthFirstSearch/dfs.h server.h 
+
 all: build
 
 build: server.o main.o graph.o dfs.o
@@ -15,8 +17,8 @@ main.o:
 graph.o:
 	g++ -c graph.cpp
 
-dsf.o:
-	g++ -c algoriths/depthFirstSearch/dfs.h algoriths/depthFirstSearch/dfs.cpp graph.h
+dfs.o: algoriths/depthFirstSearch/dfs.cpp $(HEADERFILES)
+	g++ -c  algoriths/depthFirstSearch/dfs.cpp 
 
 clean:
 	rm main
