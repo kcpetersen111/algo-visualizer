@@ -5,7 +5,7 @@
 
 class Dfs: public Graph {
     public:
-        Dfs(int size, int start, int end);
+        Dfs(int size, int start);
         virtual ~Dfs( );
         int* NextStep();
     protected:

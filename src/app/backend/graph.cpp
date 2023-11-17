@@ -1,8 +1,7 @@
 #include "graph.h"
 
-Graph::Graph(int size, int startNode, int endNode){
+Graph::Graph(int size, int startNode){
     mStart = startNode;
-    mEnd = endNode;
     for(int i = 0; i<size; i++) {
         std::vector<int*> tempVec(size, 0);
         mGraph.push_back(tempVec);
