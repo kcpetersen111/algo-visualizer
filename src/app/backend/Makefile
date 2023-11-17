@@ -18,8 +18,10 @@ graph.o:
 	g++ -c graph.cpp
 
 dfs.o: algorithms/depthFirstSearch/dfs.cpp $(HEADERFILES)
-	g++ -c  algorithms/depthFirstSearch/dfs.cpp
+	g++ -c algorithms/depthFirstSearch/dfs.cpp
 
 clean:
-	rm main
-	rm *.o
+	rm -f *.o
+	rm -f *.*.gch
+	rm -f server
+	rm -f main

@@ -1,9 +1,10 @@
 #include "dfs.h"
 
-Dfs::Dfs(int size, int start, int end): 
-    Graph(size, start, end){
-    mVisited = std::vector<int> (size, NULL);
+Dfs::Dfs(int size, int start, int end): Graph(size, start, end){
+    mVisited = std::vector<int> (size, 0);
 }
+
+Dfs::~Dfs( ) {}
 
 int Dfs::NextStep(){
     int curr;
@@ -12,11 +13,11 @@ int Dfs::NextStep(){
             curr = mStack.back();
             mStack.pop_back();
         } else {
-            return NULL;
+            return 0;
         }
-    } while(mVisited[curr] != NULL);
+    } while(mVisited[curr] != 0);
     for(int i = 0; i<mGraph[curr].size(); i++){
-        if (mGraph[curr][i] != NULL){
+        if (mGraph[curr][i] != 0){
             mStack.push_back(i);
         }
     }
