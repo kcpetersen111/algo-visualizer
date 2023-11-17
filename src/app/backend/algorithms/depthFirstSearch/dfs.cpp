@@ -7,18 +7,19 @@ Dfs::Dfs(int size, int start, int end): Graph(size, start, end){
 
 Dfs::~Dfs( ) {}
 
-int Dfs::NextStep(){
-    int curr;
+int* Dfs::NextStep(){
+    int *curr;
     do {
         if (mStack.size() != 0){
-            curr = mStack.back();
+            curr = &mStack.back();
             mStack.pop_back();
         } else {
             return 0;
         }
-    } while(mVisited[curr] != 0);
-    for(int i = 0; i<mGraph[curr].size(); i++){
-        if (mGraph[curr][i] != 0){
+    } while(mVisited[*curr] != 0);
+
+    for(int i = 0; i<mGraph[*curr].size(); i++){
+        if (mGraph[*curr][i] != 0){
             mStack.push_back(i);
         }
     }

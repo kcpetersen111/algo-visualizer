@@ -5,7 +5,7 @@ class Graph {
     public:
         Graph(int size, int startNode, int endNode);
         virtual ~Graph();
-        virtual int NextStep() = 0;
+        virtual int* NextStep() = 0;
         void AddConnection(int start, int end, int weight);
         void AddNode();
 
