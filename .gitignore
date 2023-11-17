@@ -36,3 +36,8 @@ yarn-error.log*
 next-env.d.ts
 
 a.out
+*.o
+main
+server
+*.*.gch
+algoVis
