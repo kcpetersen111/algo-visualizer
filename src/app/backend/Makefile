@@ -3,7 +3,7 @@ HEADERFILES := graph.h algorithms/depthFirstSearch/dfs.h server.h
 all: build
 
 build: server.o main.o graph.o dfs.o
-	g++ -o main $^
+	g++ -o algoVis $^
 
 run: build
 	./main
