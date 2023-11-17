@@ -6,7 +6,7 @@ build: server.o main.o graph.o dfs.o
 	g++ -o algoVis $^
 
 run: build
-	./main
+	./algoVis
 
 server.o:
 	g++ -c server.cpp
