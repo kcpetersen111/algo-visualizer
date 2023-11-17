@@ -1,15 +1,37 @@
-import { useRef } from "react";
-import Draggable from "react-draggable";
+import { MouseEventHandler, useRef, useState } from "react";
+import Draggable, { DraggableData, DraggableEvent, DraggableEventHandler } from "react-draggable";
 
 type TreeNodeProps = {
     title: string;
+    className?: string;
+    id?: number;
+    position: Position;
+    setPosition: Function;
+    onClick: MouseEventHandler;
 }
-export const TreeNode = ({ title }: TreeNodeProps) => {
+
+type Position = {
+    x: number;
+    y: number;
+}
+
+export const TreeNode = ({ title, className, id, position, setPosition, onClick }: TreeNodeProps) => {
     const nodeRef = useRef(null);
+
+    const handleDrag = (e: DraggableEvent, data: DraggableData) => {
+        setPosition(id, data.x, data.y);
+        position.x = data.x;
+        position.y = data.y;
+    }
+
     return (
         <>
-            <Draggable bounds="parent" nodeRef={nodeRef}>
-                <div ref={nodeRef} className="w-20 h-20 flex items-center justify-center rounded-full border-2">
+            <Draggable bounds="parent" nodeRef={nodeRef} onStop={handleDrag} position={position} >
+                <div 
+                    ref={nodeRef} 
+                    onClick={onClick}
+                    id={id?.toString()}
+                    className={`w-20 h-20 flex items-center justify-center rounded-full border-2 hover:cursor-grab ${className}`}>
                     <h1>{title}</h1>
                 </div>
             </Draggable>
