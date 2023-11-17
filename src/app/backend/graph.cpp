@@ -3,9 +3,9 @@
 Graph::Graph(int size, int startNode, int endNode){
     mStart = startNode;
     mEnd = endNode;
+    std::cout << "adfasfasdfasdfasdf";
     for(int i = 0; i<size; i++) {
-        int* n = 0;
-        std::vector<int*> tempVec(size, n);
+        std::vector<int*> tempVec(size, 0);
         mGraph.push_back(tempVec);
     }
 }

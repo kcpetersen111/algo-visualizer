@@ -1,32 +1,29 @@
 #include "crow.h"
 #include "server.h"
-#include "algorithms/depthFirstSearch/dfs.h"
 
 int server()
 {
-    Dfs *d = new Dfs(5,0,1);
+    crow::SimpleApp app;
 
-    // crow::SimpleApp app;
+    CROW_ROUTE(app, "/ws")
+        .websocket()
+        .onopen([&](crow::websocket::connection& conn){
+                CROW_LOG_INFO << "new websocket connection";
+                conn.send_text(std::string("You are connected to the socket!"));
+                })
+        .onclose([&](crow::websocket::connection& conn, const std::string& reason){
+                conn.send_text(std::string("You closed the socket!"));
+                CROW_LOG_INFO << "websocket connection closed: " << reason;
+                })
+        .onmessage([&](crow::websocket::connection& conn, const std::string& data, bool is_binary){
+                CROW_LOG_INFO << "websocket message: " << data;
+                conn.send_text(std::string("Howdy"));
+                });
 
-    // CROW_ROUTE(app, "/ws")
-    //     .websocket()
-    //     .onopen([&](crow::websocket::connection& conn){
-    //             CROW_LOG_INFO << "new websocket connection";
-    //             conn.send_text(std::string("You are connected to the socket!"));
-    //             })
-    //     .onclose([&](crow::websocket::connection& conn, const std::string& reason){
-    //             conn.send_text(std::string("You closed the socket!"));
-    //             CROW_LOG_INFO << "websocket connection closed: " << reason;
-    //             })
-    //     .onmessage([&](crow::websocket::connection& conn, const std::string& data, bool is_binary){
-    //             CROW_LOG_INFO << "websocket message: " << data;
-    //             conn.send_text(std::string("Howdy"));
-    //             });
+    CROW_ROUTE(app, "/")([](){
+        return "Hello world";
+    });
 
-    // CROW_ROUTE(app, "/")([](){
-    //     return "Hello world";
-    // });
-
-    // app.port(18080).run();
+    app.port(18080).run();
 
 }

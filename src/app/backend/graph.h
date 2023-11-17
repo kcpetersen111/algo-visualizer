@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 class Graph {
     public:
         Graph(int size, int startNode, int endNode);
