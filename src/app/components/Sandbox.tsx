@@ -1,14 +1,19 @@
 "use client";
 
-import Draggable from "react-draggable";
+import { TreeNode } from "./TreeNode";
 
-export const Sandbox = () => {
+type SandboxProps = {
+    nodes: string[];
+}
+
+export const Sandbox = ({ nodes }: SandboxProps) => {
+
     return (
         <>
-            <div className="h-screen w-screen">
-                <Draggable bounds="parent">
-                    <p className="w-fit">test this draggable text</p>
-                </Draggable>
+            <div className="h-full w-full relative">
+                {nodes.map((node, index) => (
+                    <TreeNode key={index} title={node} />
+                ))}
             </div>
         </>
     );
