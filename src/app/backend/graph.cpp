@@ -9,6 +9,7 @@ Graph::Graph(int size, int startNode, int endNode){
         mGraph.push_back(tempVec);
     }
 }
+Graph::~Graph(){}
 
 void Graph::AddConnection(int start, int end, int weight){
     mGraph[start][end] = &weight;

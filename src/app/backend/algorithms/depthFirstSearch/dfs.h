@@ -1,6 +1,7 @@
 #pragma once
 #include "../../graph.h"
 #include <vector>
+#include <cstddef>
 
 class Dfs: public Graph {
     public:
