@@ -17,12 +17,8 @@ void Graph::AddConnection(int start, int end, int weight){
 void Graph::AddNode(){
     std::vector<int> tempVec(mGraph.size(), 0);
     mGraph.push_back(tempVec);
-    
+
     for(int i = 0; i< mGraph.size(); i++){
         mGraph[i].push_back(0);
     }
-}
-
-int main(){
-    return 0;
 }

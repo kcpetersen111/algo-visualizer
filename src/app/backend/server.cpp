@@ -1,6 +1,7 @@
 #include "crow.h"
+#include "server.h"
 
-int main()
+int server()
 {
     crow::SimpleApp app;
 
