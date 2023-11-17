@@ -1,6 +1,6 @@
 all: build
 
-build: server.o main.o graph.o
+build: server.o main.o graph.o dfs.o
 	g++ -o main $^
 
 run: build
@@ -14,6 +14,9 @@ main.o:
 
 graph.o:
 	g++ -c graph.cpp
+
+dsf.o:
+	g++ -c algoriths/depthFirstSearch/dfs.h algoriths/depthFirstSearch/dfs.cpp 
 
 clean:
 	rm main
