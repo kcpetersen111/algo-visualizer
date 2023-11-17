@@ -25,5 +25,5 @@ int server()
     });
 
     app.port(18080).run();
-
+    return 0;
 }

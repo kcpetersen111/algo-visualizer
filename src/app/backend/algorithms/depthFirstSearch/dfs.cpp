@@ -2,6 +2,7 @@
 
 Dfs::Dfs(int size, int start, int end): Graph(size, start, end){
     mVisited = std::vector<int> (size, 0);
+    mStack.push_back(start);
 }
 
 Dfs::~Dfs( ) {}
