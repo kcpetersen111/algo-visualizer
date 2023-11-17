@@ -12,6 +12,6 @@ class Graph {
         int mStart;
         int mEnd;
         //mGraph[nodeYouAreAt][nodeYouAreGoingTo]
-        std::vector<std::vector<int>> mGraph;
+        std::vector< std::vector<*int> > mGraph;
 
 };

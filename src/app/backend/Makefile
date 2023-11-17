@@ -16,7 +16,7 @@ graph.o:
 	g++ -c graph.cpp
 
 dsf.o:
-	g++ -c algoriths/depthFirstSearch/dfs.h algoriths/depthFirstSearch/dfs.cpp 
+	g++ -c algoriths/depthFirstSearch/dfs.h algoriths/depthFirstSearch/dfs.cpp graph.h
 
 clean:
 	rm main

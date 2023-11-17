@@ -1,6 +1,7 @@
 #include "dfs.h"
 
-Dfs::Dfs(int size, int start, int end){
+Dfs::Dfs(int size, int start, int end): 
+    Graph(size, start, end){
     mVisited = std::vector<int> (size, NULL);
 }
 

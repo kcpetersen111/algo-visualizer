@@ -4,7 +4,7 @@
 
 int server()
 {
-    Dfs *d = new dfs.Dfs(5,0,1);
+    Dfs *d = new Dfs(5,0,1);
 
     // crow::SimpleApp app;
 
