@@ -11,7 +11,8 @@ int* Dfs::NextStep(){
     int *curr;
     do {
         if (mStack.size() != 0){
-            curr = &mStack.back();
+            int bugWasHere = mStack.back();
+            curr = &bugWasHere;
             mStack.pop_back();
         } else {
             return 0;
