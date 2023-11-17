@@ -9,9 +9,9 @@ int main() {
     d.AddConnection(2,3,1);
 
     // std::cout << d.mGraph << std::endl;
-    std::cout << *d.NextStep() << std::endl;
-    std::cout << *d.NextStep() << std::endl;
-    std::cout << *d.NextStep() << std::endl;
+    std::cout << d.NextStep() << std::endl;
+    std::cout << d.NextStep() << std::endl;
+    std::cout << d.NextStep() << std::endl;
 
     // server();
     return 0;
