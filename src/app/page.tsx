@@ -3,7 +3,7 @@
 import { NavBar } from './components/NavBar'
 import { ToolBar } from './components/ToolBar'
 import { Connection, Sandbox, TreeNode } from './components/Sandbox'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [nodes, setNodes] = useState<TreeNode[]>([])
@@ -11,6 +11,11 @@ export default function Home() {
   const [idCount, setIDCount] = useState(0);
   const [tool, setTool] = useState("add");
   const [connect, setConnect] = useState<number[]>([]);
+  const [websocket, setWebsocket] = useState<WebSocket>();
+
+  useEffect(() => {
+    setWebsocket(new WebSocket("localhost:3410/ws"));
+  }, [])
 
   const activateAdd = () => {
     setTool("add");
