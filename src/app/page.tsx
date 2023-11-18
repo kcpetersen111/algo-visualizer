@@ -68,7 +68,8 @@ export default function Home() {
     
     setNodes(tempNodes.slice());
     // setTool(false);
-    
+
+    setConnections(connections.filter(conn => conn.from !== id && conn.to !== id));
     
   }
 

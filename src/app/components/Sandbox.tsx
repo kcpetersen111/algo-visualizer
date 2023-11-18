@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { TreeNode } from "./TreeNode";
-import Xarrow from "react-xarrows";
+import Xarrow, { Xwrapper } from "react-xarrows";
 
 export type TreeNode = {
     id: number;
@@ -45,8 +45,8 @@ export const Sandbox = ({ nodes, addNode, connectNode, connections, triggerDelet
                 id="sandbox" 
                 className="h-full w-full relative"
             >
-                {connections.map((conn, index) => (
-                    <Xarrow key={index} showHead={false} start={conn.from.toString()} end={conn.to.toString()} />
+                {connections.map((conn, index) => (                        
+                    <Xarrow key={index} showHead={true} start={conn.from.toString()} end={conn.to.toString()} />
                 ))}
                 {nodes.map((node, index) => (
                     <TreeNode 
