@@ -4,4 +4,4 @@ build:
 	go build
 
 run:
-	./main
+	./algoVis
