@@ -14,12 +14,13 @@ export type TreeNode = {
 type SandboxProps = {
     nodes: TreeNode[];
     triggerDelete: Function;
-    removable: boolean;
+    tool: string;
     setPosition: Function;
+    addNode: Function;
 }
 
 
-export const Sandbox = ({ nodes, triggerDelete, setPosition, removable }: SandboxProps) => {
+export const Sandbox = ({ nodes, addNode, triggerDelete, setPosition, tool }: SandboxProps) => {
 
     // useEffect(() => {
     //     nodes.forEach(node => {
@@ -31,7 +32,13 @@ export const Sandbox = ({ nodes, triggerDelete, setPosition, removable }: Sandbo
 
     return (
         <>
-            <div id="sandbox" className="h-full w-full relative">
+            <div 
+                onClick={() => {
+                    if (tool === "add") addNode();
+                }} 
+                id="sandbox" 
+                className="h-full w-full relative"
+            >
                 {nodes.map((node, index) => (
                     <TreeNode 
                         key={index} 
@@ -39,9 +46,9 @@ export const Sandbox = ({ nodes, triggerDelete, setPosition, removable }: Sandbo
                         id={node.id}
                         position={{ x: node.x, y: node.y }}
                         setPosition={setPosition}
-                        className={removable ? "hover:border-red-500 hover:text-red-600" : ""}
+                        className={tool === "remove" ? "hover:border-red-500 hover:text-red-600" : ""}
                         onClick={(e) => {
-                            if (removable) {
+                            if (tool === "remove") {
                                 e.stopPropagation();
                                 e.preventDefault();
                                 triggerDelete(node.id);
