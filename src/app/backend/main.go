@@ -48,6 +48,20 @@ func addRoutes(router *mux.Router) {
 }
 
 func main() {
+	//graph := algorithms.Graph{}
+	//size := graph.SetSize(5)
+	//fmt.Printf("before adding connection: %+v\n", graph.Nodes())
+	//err := graph.AddConnection(0, 1)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//algo := algorithms.BFS{}
+	//algo.G = graph
+	//algo.Search()
+	//fmt.Printf("after adding connection: %+v\n", graph.Nodes())
+
+	// ret := algorithms.Test()
+	//fmt.Printf("size: %d\n", size)
 	host := flag.String("host", "0.0.0.0", "The host to listen at")
 	port := flag.String("port", "3410", "The host to listen at")
 	flag.Parse()
