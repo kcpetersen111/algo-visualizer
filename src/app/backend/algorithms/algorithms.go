@@ -8,11 +8,10 @@ type Search interface {
 func NewBFS(graph Graph) BFS {
 	b := BFS{}
 	b.CurrNode = graph.startNode
-	b.queue = make([]int, 0)
 	b.G = graph
 
 	// seed the queue with info
-	b.queue = append(b.queue, b.CurrNode)
+	b.queue = append(b.queue, graph.startNode)
 
 	return b
 }

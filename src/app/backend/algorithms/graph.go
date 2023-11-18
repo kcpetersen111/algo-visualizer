@@ -53,3 +53,7 @@ func (g *Graph) AllVisited() bool {
 func (g *Graph) SetGoal(node int) {
 	g.goalNode = node
 }
+
+func (g *Graph) SetStartNode(node int) {
+	g.startNode = node
+}
