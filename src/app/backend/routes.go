@@ -110,6 +110,8 @@ func ws(w http.ResponseWriter, r *http.Request) {
 				switch searchType {
 				case "bfs":
 					search = algorithms.NewBFS(graph)
+				case "dfs":
+					search = algorithms.NewDFS(graph)
 				default:
 					log.Printf("unknown search type: %v", searchType)
 				}
