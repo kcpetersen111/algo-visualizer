@@ -17,10 +17,11 @@ type SandboxProps = {
     tool: string;
     setPosition: Function;
     addNode: Function;
+    connectNode: Function;
 }
 
 
-export const Sandbox = ({ nodes, addNode, triggerDelete, setPosition, tool }: SandboxProps) => {
+export const Sandbox = ({ nodes, addNode, connectNode, triggerDelete, setPosition, tool }: SandboxProps) => {
 
     // useEffect(() => {
     //     nodes.forEach(node => {
@@ -52,6 +53,9 @@ export const Sandbox = ({ nodes, addNode, triggerDelete, setPosition, tool }: Sa
                                 e.stopPropagation();
                                 e.preventDefault();
                                 triggerDelete(node.id);
+                            }
+                            if (tool === "connect") {
+                                connectNode(node.id);
                             }
                         }}
                     />

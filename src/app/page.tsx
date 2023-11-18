@@ -9,6 +9,7 @@ export default function Home() {
   const [nodes, setNodes] = useState<TreeNode[]>([])
   const [idCount, setIDCount] = useState(0);
   const [tool, setTool] = useState("");
+  const [connect, setConnect] = useState<number[]>([]);
 
   const activateAdd = () => {
     setTool("add");
@@ -19,13 +20,16 @@ export default function Home() {
     setIDCount(idCount + 1);
   }
 
-  const connectNode = (title: string) => {
-    // const tempNodes = nodes.filter(node => node.id !== id);
+  const connectNode = (id: number) => {
+    if (connect.length >= 2) {
+      setConnect([]);
+    }
 
-    // setNodes([]);
-    
-    // setNodes(tempNodes.slice());
-    // setNodes(prev => prev.filter(node => node.id !== id));
+    setConnect(connect => [...connect, id]);
+
+    if (connect.length >= 2) {
+      
+    }
   }
 
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
@@ -81,7 +85,7 @@ export default function Home() {
     <main>
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
-        <Sandbox nodes={nodes} addNode={addNode} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
+        <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
         <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} connectNode={connectNode} />
       </div>
     </main>
