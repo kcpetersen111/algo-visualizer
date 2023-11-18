@@ -15,3 +15,14 @@ func NewBFS(graph Graph) BFS {
 
 	return b
 }
+
+func NewDFS(graph Graph) DFS {
+	d := DFS{}
+	d.CurrNode = graph.startNode
+	d.G = graph
+
+	// seed the queue with info
+	d.queue = append(d.queue, graph.startNode)
+
+	return d
+}
