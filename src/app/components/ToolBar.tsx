@@ -1,4 +1,4 @@
-import { IconPlus, IconX, IconLine, IconPointer, IconPlayerTrackNext, IconPlayerPlay } from "@tabler/icons-react";
+import { IconPlus, IconX, IconLine, IconPointer, IconPlayerTrackNext, IconPlayerPlay, IconSettings } from "@tabler/icons-react";
 import { useRef, useState } from "react";
 import Draggable from "react-draggable";
 
@@ -9,6 +9,7 @@ type ToolBarProps = {
     selectNode: Function;
     nextNode: Function;
     playNode: Function;
+    settings: Function;
     tool: string;
 }
 
@@ -38,7 +39,7 @@ const SettingsPopover = () => {
     );
 }
 
-export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, playNode, tool }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, playNode, settings, tool }: ToolBarProps) => {
 
     const buttonStyles = "hover:bg-slate-200 rounded-lg p-2 my-2 "
 
@@ -61,14 +62,17 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
                 <button className={buttonStyles + (tool === "select" ? "bg-slate-200" : "bg-transparent")} onClick={() => {selectNode(); console.log('select')}}>
                     <IconPointer />
                 </button>
+                <button className={buttonStyles + (tool === "next" ? "bg-slate-200" : "bg-transparent")} onClick={() => {nextNode(); console.log('next')}}>
+                    <IconPlayerTrackNext />
+                </button>
                 <div className="flex flex-row">
                     {playPopover && <RunAlgorithmPopover />}
                     <button className={buttonStyles + (tool === "play" ? "bg-slate-200" : "bg-transparent")} onClick={() => {playNode(); setPlayPopover(!playPopover); console.log('play')}}>
                         <IconPlayerPlay />
                     </button>
                 </div>
-                <button className={buttonStyles + (tool === "next" ? "bg-slate-200" : "bg-transparent")} onClick={() => {nextNode(); console.log('next')}}>
-                    <IconPlayerTrackNext />
+                <button className={buttonStyles + (tool === "next" ? "bg-slate-200" : "bg-transparent")} onClick={() => {settings(); console.log('settings')}}>
+                    <IconSettings />
                 </button>
             </div>
         </>
