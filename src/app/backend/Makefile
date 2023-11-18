@@ -1,8 +1,8 @@
-HEADERFILES := graph.h algorithms/depthFirstSearch/dfs.h server.h
+HEADERFILES := graph.h algorithms/depthFirstSearch/dfs.h server.h algorithms/breathFirstSearch/bfs.h
 
 all: build
 
-build: server.o main.o graph.o dfs.o
+build: server.o main.o graph.o dfs.o bfs.o
 	g++ -o algoVis $^
 
 run: build
@@ -19,6 +19,9 @@ graph.o:
 
 dfs.o: algorithms/depthFirstSearch/dfs.cpp $(HEADERFILES)
 	g++ -c algorithms/depthFirstSearch/dfs.cpp
+
+bfs.o: algorithms/breathFirstSearch/bfs.cpp $(HEADERFILES)
+	g++ -c algorithms/breathFirstSearch/bfs.cpp
 
 clean:
 	rm -f *.o
