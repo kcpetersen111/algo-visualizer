@@ -25,6 +25,7 @@ type SandboxProps = {
     addNode: Function;
     connectNode: Function;
     connections: Connection[];
+    visiting?: number;
 }
 
 type Connecting = {
@@ -32,7 +33,7 @@ type Connecting = {
 }
 
 
-export const Sandbox = ({ nodes, addNode, connectNode, connections, triggerDelete, setPosition, tool }: SandboxProps) => {
+export const Sandbox = ({ nodes, addNode, connectNode, connections, triggerDelete, setPosition, tool, visiting }: SandboxProps) => {
 
     const [connecting, setConnecting] = useState<Connecting>({} as Connecting);
 
@@ -58,7 +59,7 @@ export const Sandbox = ({ nodes, addNode, connectNode, connections, triggerDelet
                         position={{ x: node.x, y: node.y }}
                         setPosition={setPosition}
                         className={
-                            (tool === "remove" ? "hover:border-red-500 hover:text-red-600" : "") + ((connecting.ids ? connecting.ids.includes(node.id) : false) ? "border-green-500 text-green-600" : "")
+                            (tool === "remove" ? "hover:border-red-500 hover:text-red-600" : "") + (visiting === node.id ? " border-blue-500 text-blue-600 " : "") + ((connecting.ids ? connecting.ids.includes(node.id) : false) ? "border-green-500 text-green-600" : "")
                         }
                         onClick={(e) => {
                             if (tool === "remove") {

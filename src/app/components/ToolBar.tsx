@@ -16,15 +16,26 @@ type ToolBarProps = {
     setType: Function;
     toggleDarkLight: Function;
     dark: boolean;
+    from?: number;
+    to?: number;
+    setFrom: Function;
+    setTo: Function;
 }
 
 type RunAlgorithmPopoverProps = {
     playNode: Function;
     setType: Function;
+    from?: number;
+    to?: number;
+    setFrom: Function;
+    setTo: Function;
 }
 
-const RunAlgorithmPopover = ({ playNode, setType }: RunAlgorithmPopoverProps) => {
+const RunAlgorithmPopover = ({ playNode, setType, from, to, setFrom, setTo }: RunAlgorithmPopoverProps) => {
     // Element
+
+    // const [from, setFrom] = useState<string>();
+    // const [to, setTo] = useState<string>();
 
     return (
         <>
@@ -34,7 +45,12 @@ const RunAlgorithmPopover = ({ playNode, setType }: RunAlgorithmPopoverProps) =>
                     <option onClick={() => setType("bfs")}>Breadth First Search</option>
                     <option onClick={() => setType("dfs")}>Depth First Search</option>
                 </select>
-                <button onClick={() => playNode()} className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
+                <label className="mt-4">From:</label>
+                <input value={from} onChange={(e) => setFrom(e.target.value)} type="text" className="border-2 dark:text-slate-950" />
+
+                <label className="mt-4">To:</label>
+                <input value={to} type="text" onChange={(e) => setTo(e.target.value)} className="border-2 dark:text-slate-950" />
+                <button onClick={() => playNode()}  className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
             </div>
         </>
     );
@@ -50,18 +66,18 @@ const SettingsPopover = ({toggleDarkLight, dark}: SettingsPopoverProps) => {
     return (
         <>
             <div className="flex flex-col w-fit h-fit absolute right-20 bottom-5 border-2 rounded-md p-4 dark:bg-slate-700 dark:border-gray-600">
-                <p>Settings:</p>
+                <p className="mb-4">Settings:</p>
                 <DarkModeToggle dark={dark} onClick={() => toggleDarkLight()} />
-                <button onClick={() => {}}>
+                {/* <button onClick={() => {}}>
                     <IconArrowBarBoth />
-                </button>
+                </button> */}
             </div>
         
         </>
     );
 }
 
-export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType, toggleDarkLight, dark }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType, toggleDarkLight, dark, to, from, setTo, setFrom }: ToolBarProps) => {
 
     const buttonStyles = "hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg p-2 my-2 "
 
@@ -91,7 +107,7 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
                         <IconPlayerTrackNext />
                     </button>
                     <div className="flex flex-row">
-                        {playPopover && <RunAlgorithmPopover playNode={playNode} setType={setType} />}
+                        {playPopover && <RunAlgorithmPopover playNode={playNode} setType={setType} to={to} from={from} setTo={setTo} setFrom={setFrom} />}
                         <button className={buttonStyles + (tool === "play" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {activatePlay(); setPlayPopover(!playPopover); console.log('play')}}>
                             <IconPlayerPlay />
                         </button>
