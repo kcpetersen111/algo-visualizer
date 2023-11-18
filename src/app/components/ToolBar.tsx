@@ -41,9 +41,9 @@ const RunAlgorithmPopover = ({ playNode, setType, from, to, setFrom, setTo }: Ru
         <>
             <div className="flex flex-col w-fit h-fit absolute right-20 border-2 rounded-md p-4 dark:bg-slate-700 dark:border-gray-600">
                 <p>Choose an Algorithm to run:</p>
-                <select name="yup" className="w-fit bg-transparent">
-                    <option onClick={() => setType("bfs")}>Breadth First Search</option>
-                    <option onClick={() => setType("dfs")}>Depth First Search</option>
+                <select onChange={(e) => {e.target.value === "Breadth First Search" ? setType("bfs"): setType("dfs")}} name="yup" className="w-fit bg-transparent">
+                    <option>Breadth First Search</option>
+                    <option>Depth First Search</option>
                 </select>
                 <label className="mt-4">From:</label>
                 <input value={from} onChange={(e) => setFrom(Number(e.target.value))} type="text" className="border-2 dark:text-slate-950" />
