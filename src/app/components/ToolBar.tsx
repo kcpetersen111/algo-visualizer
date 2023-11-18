@@ -8,12 +8,17 @@ type ToolBarProps = {
     activateConnect: Function;
     selectNode: Function;
     nextNode: Function;
+    activatePlay: Function;
     playNode: Function;
     settings: Function;
     tool: string;
 }
 
-const RunAlgorithmPopover = () => {
+type RunAlgorithmPopoverProps = {
+    playNode: Function
+}
+
+const RunAlgorithmPopover = ({ playNode }: RunAlgorithmPopoverProps) => {
     // Element
 
     return (
@@ -24,7 +29,7 @@ const RunAlgorithmPopover = () => {
                     <option>Breadth First Search</option>
                     <option>Depth First Search</option>
                 </select>
-                <button className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
+                <button onClick={() => playNode()} className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
             </div>
         </>
     );
@@ -39,7 +44,7 @@ const SettingsPopover = () => {
     );
 }
 
-export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, playNode, settings, tool }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool }: ToolBarProps) => {
 
     const buttonStyles = "hover:bg-slate-200 rounded-lg p-2 my-2 "
 
@@ -66,8 +71,8 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
                     <IconPlayerTrackNext />
                 </button>
                 <div className="flex flex-row">
-                    {playPopover && <RunAlgorithmPopover />}
-                    <button className={buttonStyles + (tool === "play" ? "bg-slate-200" : "bg-transparent")} onClick={() => {playNode(); setPlayPopover(!playPopover); console.log('play')}}>
+                    {playPopover && <RunAlgorithmPopover playNode={playNode} />}
+                    <button className={buttonStyles + (tool === "play" ? "bg-slate-200" : "bg-transparent")} onClick={() => {activatePlay(); setPlayPopover(!playPopover); console.log('play')}}>
                         <IconPlayerPlay />
                     </button>
                 </div>
