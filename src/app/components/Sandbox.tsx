@@ -39,8 +39,10 @@ export const Sandbox = ({ nodes, addNode, connectNode, connections, triggerDelet
     return (
         <>
             <div 
-                onClick={() => {
-                    if (tool === "add") addNode();
+                onClick={(e) => {
+                    if (tool === "add") {
+                        addNode(e.clientX, e.clientY);
+                    }
                 }} 
                 id="sandbox" 
                 className="h-full w-full relative"

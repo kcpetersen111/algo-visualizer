@@ -9,7 +9,7 @@ export default function Home() {
   const [nodes, setNodes] = useState<TreeNode[]>([])
   const [connections, setConnections] = useState<Connection[]>([]);
   const [idCount, setIDCount] = useState(0);
-  const [tool, setTool] = useState("");
+  const [tool, setTool] = useState("add");
   const [connect, setConnect] = useState<number[]>([]);
 
   const activateAdd = () => {
@@ -20,8 +20,8 @@ export default function Home() {
     setTool("connect");
   }
   
-  const addNode = (title: string) => {
-    setNodes(nodes => [...nodes, { id: idCount, title: idCount.toString(), connected: false, x: 0, y: 0 }]);
+  const addNode = (x: number, y: number) => {
+    setNodes(nodes => [...nodes, { id: idCount, title: idCount.toString(), connected: false, x: x-40, y: y-40 }]);
     setIDCount(idCount + 1);
   }
 
@@ -41,7 +41,6 @@ export default function Home() {
       }
     }
 
-
   }
 
   const selectNode = (title: string) => {
@@ -49,12 +48,12 @@ export default function Home() {
   }
 
   const nextNode = (title: number) => {
-    if (nextNode == -1) {
-       //There is no next node 
-    } else {
-        //Pick the node that the backend
-        //returns. Use node ids?
-    }
+    // if (nextNode == -1) {
+    //    There is no next node 
+    // } else {
+    //     Pick the node that the backend
+    //     returns. Use node ids?
+    // }
   }
 
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
@@ -112,7 +111,7 @@ export default function Home() {
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode}/>
+        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} tool={tool} />
       </div>
     </main>
   )
