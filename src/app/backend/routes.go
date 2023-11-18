@@ -98,7 +98,7 @@ func ws(w http.ResponseWriter, r *http.Request) {
 
 			err = graph.AddConnection(mapToBackend[fromNode], mapToBackend[toNode])
 			if err != nil {
-				log.Printf("error adding connection %v\n", err)
+				log.Printf("error adding connection %v graph: %#v fromNode after map: %v toNode after map: %v \n", err, graph.Nodes(), mapToBackend[fromNode], mapToBackend[toNode])
 				continue
 			}
 
@@ -110,6 +110,8 @@ func ws(w http.ResponseWriter, r *http.Request) {
 				switch searchType {
 				case "bfs":
 					search = algorithms.NewBFS(graph)
+				case "dfs":
+					search = algorithms.NewDFS(graph)
 				default:
 					log.Printf("unknown search type: %v", searchType)
 				}
@@ -130,6 +132,11 @@ func ws(w http.ResponseWriter, r *http.Request) {
 				res, err := sjson.Set("", "visiting.done", true)
 				if err != nil {
 					log.Printf("error while trying to set impossible: %v", err)
+					return
+				}
+				res, err = sjson.Set(res, "visiting.id", mapToFrontend[step])
+				if err != nil {
+					log.Printf("error while tryinh to set id: %v", err)
 					return
 				}
 				conn.WriteMessage(1, []byte(res))
