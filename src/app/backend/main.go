@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"flag"
 	"log"
 	"net/http"
@@ -12,22 +11,21 @@ import (
 	"github.com/rs/cors"
 )
 
-func ping(w http.ResponseWriter, _ *http.Request) {
-	b := bytes.NewBufferString("pong")
-	w.WriteHeader(200)
-	w.Write(b.Bytes())
-}
-
-func ws(w http.ResponseWriter, _ *http.Request) {
-	return
-}
-
-func addRoutes(router *mux.Router) {
-	router.HandleFunc("/ping", ping)
-	router.HandleFunc("/ws", ws)
-}
-
 func main() {
+	//graph := algorithms.Graph{}
+	//size := graph.SetSize(5)
+	//fmt.Printf("before adding connection: %+v\n", graph.Nodes())
+	//err := graph.AddConnection(0, 1)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//algo := algorithms.BFS{}
+	//algo.G = graph
+	//algo.Search()
+	//fmt.Printf("after adding connection: %+v\n", graph.Nodes())
+
+	// ret := algorithms.Test()
+	//fmt.Printf("size: %d\n", size)
 	host := flag.String("host", "0.0.0.0", "The host to listen at")
 	port := flag.String("port", "3410", "The host to listen at")
 	flag.Parse()

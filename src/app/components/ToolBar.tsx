@@ -8,12 +8,19 @@ type ToolBarProps = {
     activateConnect: Function;
     selectNode: Function;
     nextNode: Function;
+    activatePlay: Function;
     playNode: Function;
     settings: Function;
     tool: string;
+    setType: Function;
 }
 
-const RunAlgorithmPopover = () => {
+type RunAlgorithmPopoverProps = {
+    playNode: Function;
+    setType: Function;
+}
+
+const RunAlgorithmPopover = ({ playNode, setType }: RunAlgorithmPopoverProps) => {
     // Element
 
     return (
@@ -21,10 +28,10 @@ const RunAlgorithmPopover = () => {
             <div className="flex flex-col w-fit h-fit absolute right-20 border-2 rounded-md p-4">
                 <p>Choose an Algorithm to run:</p>
                 <select name="yup" className="w-fit">
-                    <option>Breadth First Search</option>
-                    <option>Depth First Search</option>
+                    <option onClick={() => setType("bfs")}>Breadth First Search</option>
+                    <option onClick={() => setType("dfs")}>Depth First Search</option>
                 </select>
-                <button className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
+                <button onClick={() => playNode()} className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
             </div>
         </>
     );
@@ -36,10 +43,10 @@ const SettingsPopover = () => {
         <>
             <div className="flex flex-col w-fit h-fit absolute right-20 bottom-5 border-2 rounded-md p-4">
                 <p>Settings:</p>
-                <button onClick={() => activateAdd()}>
+                <button onClick={() => {}}>
                     <IconMoon />
                 </button>
-                <button onClick={() => activateAdd()}>
+                <button onClick={() => {}}>
                     <IconArrowBarBoth />
                 </button>
             </div>
@@ -48,7 +55,7 @@ const SettingsPopover = () => {
     );
 }
 
-export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, playNode, settings, tool }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType }: ToolBarProps) => {
 
     const buttonStyles = "hover:bg-slate-200 rounded-lg p-2 my-2 "
 
@@ -78,8 +85,8 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
                         <IconPlayerTrackNext />
                     </button>
                     <div className="flex flex-row">
-                        {playPopover && <RunAlgorithmPopover />}
-                        <button className={buttonStyles + (tool === "play" ? "bg-slate-200" : "bg-transparent")} onClick={() => {playNode(); setPlayPopover(!playPopover); console.log('play')}}>
+                        {playPopover && <RunAlgorithmPopover playNode={playNode} setType={setType} />}
+                        <button className={buttonStyles + (tool === "play" ? "bg-slate-200" : "bg-transparent")} onClick={() => {activatePlay(); setPlayPopover(!playPopover); console.log('play')}}>
                             <IconPlayerPlay />
                         </button>
                     </div>

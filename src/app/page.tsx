@@ -3,7 +3,7 @@
 import { NavBar } from './components/NavBar'
 import { ToolBar } from './components/ToolBar'
 import { Connection, Sandbox, TreeNode } from './components/Sandbox'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [nodes, setNodes] = useState<TreeNode[]>([])
@@ -11,6 +11,13 @@ export default function Home() {
   const [idCount, setIDCount] = useState(0);
   const [tool, setTool] = useState("add");
   const [connect, setConnect] = useState<number[]>([]);
+  const [websocket, setWebsocket] = useState<WebSocket>();
+  const [type, setType] = useState<string>("bfs");
+
+  useEffect(() => {
+    setWebsocket(new WebSocket("ws://0.0.0.0:3410/ws"));
+  }, []);
+
 
   const activateAdd = () => {
     setTool("add");
@@ -110,8 +117,37 @@ export default function Home() {
 
   }
 
-  const playNode = () => {
+  const activatePlay = () => {
     setTool("play");
+  }
+
+  const playNode = () => {
+    if (connections.length > 0) {
+
+      const createMessage = {
+        create: {
+          searchType: type,
+          size: connections.length,
+          startNode: connections[0].from,
+          endNode: connections[0].to,
+        },
+      }
+
+      websocket?.send(JSON.stringify(createMessage));
+
+      connections.map((conn, index) => {
+        const connectionMessage = {
+          connection: {
+            fromNode: conn.from,
+            toNode: conn.to,
+          }
+        }
+
+        websocket?.send(JSON.stringify(connectionMessage));
+      })
+
+      websocket?.send(JSON.stringify({ next: 0 }));
+    }
   }
 
 
@@ -120,8 +156,8 @@ export default function Home() {
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} playNode={playNode} settings={settings} tool={tool} />
+        <ToolBar settings={() => {}} activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} activatePlay={activatePlay} playNode={playNode} tool={tool} setType={setType} />
       </div>
     </main>
-  )
+  );
 }
