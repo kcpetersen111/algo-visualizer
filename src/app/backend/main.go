@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"flag"
 	"log"
 	"net/http"
@@ -9,43 +8,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/gorilla/websocket"
 	"github.com/rs/cors"
-	"github.com/tidwall/gjson"
 )
-
-func ping(w http.ResponseWriter, _ *http.Request) {
-	b := bytes.NewBufferString("pong")
-	w.WriteHeader(200)
-	w.Write(b.Bytes())
-}
-
-var upgrader = websocket.Upgrader{
-	ReadBufferSize:  1024,
-	WriteBufferSize: 1024,
-}
-
-func ws(w http.ResponseWriter, r *http.Request) {
-	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
-	conn, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Printf("error upgrading websocket: %v", err)
-		return
-	}
-	for {
-		_, msg, err := conn.ReadMessage()
-		if err != nil {
-			log.Printf("error reading msg from connection: %v", err)
-			return
-		}
-		log.Println(gjson.GetBytes(msg, "msg").String())
-	}
-}
-
-func addRoutes(router *mux.Router) {
-	router.HandleFunc("/ping", ping)
-	router.HandleFunc("/ws", ws)
-}
 
 func main() {
 	//graph := algorithms.Graph{}
