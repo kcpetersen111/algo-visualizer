@@ -2,6 +2,7 @@ package algorithms
 
 import (
 	"errors"
+	"fmt"
 )
 
 type DFS struct {
@@ -16,6 +17,7 @@ func (d *DFS) NextNode() int {
 
 func (d *DFS) StepSearch() (int, bool, error) {
 	// Search using DFS
+
 	if len(d.queue) == 0 {
 		return 0, true, errors.New("Queue was empty while trying to get a new child!")
 	}
@@ -23,32 +25,34 @@ func (d *DFS) StepSearch() (int, bool, error) {
 	// get the next node in the list
 	d.CurrNode = d.queue[0]
 
+	// remove the element from the beginning of the list
+	d.queue = d.queue[1:]
+
+	// Mark as visited
+	d.G.visited[d.CurrNode] = 1
+
 	// check to see if we are now at the goal node
 	if d.CurrNode == d.G.goalNode {
 		return d.CurrNode, true, nil
 	}
 
-	// remove the element from the end of the list
-	d.queue = d.queue[1:]
-
+	var temp []int
 	for _, child := range d.GenerateChildren() {
 		// make sure we haven't been here before
 		if d.G.visited[child] == 1 {
 			continue
 		}
 
-		// Mark as visited
-		d.G.visited[child] = 1
-
 		// don't modify the queue if we are at the end
 		if d.G.AllVisited() {
 			return d.CurrNode, true, nil
 		}
 
-		// Push to the queue
-		d.queue = append(d.queue, append([]int{child}, d.queue[:]...)...)
-		// d.queue = append(d.queue, child)
+		temp = append(temp, child)
 	}
+	// Push to the queue
+	d.queue = append(temp, d.queue...)
+	fmt.Printf("queue: %+v\n", d.queue)
 
 	return d.CurrNode, false, nil
 }
