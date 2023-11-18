@@ -37,3 +37,10 @@ next-env.d.ts
 
 # Swap Files
 *.swp
+
+a.out
+*.o
+main
+server
+*.*.gch
+algoVis
