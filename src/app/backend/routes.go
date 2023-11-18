@@ -98,7 +98,7 @@ func ws(w http.ResponseWriter, r *http.Request) {
 
 			err = graph.AddConnection(mapToBackend[fromNode], mapToBackend[toNode])
 			if err != nil {
-				log.Printf("error adding connection %v\n", err)
+				log.Printf("error adding connection %v graph: %#v\n", err, graph.Nodes())
 				continue
 			}
 
