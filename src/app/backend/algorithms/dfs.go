@@ -21,15 +21,15 @@ func (d *DFS) StepSearch() (int, bool, error) {
 	}
 
 	// get the next node in the list
-	d.CurrNode = d.queue[len(d.queue)-1]
+	d.CurrNode = d.queue[0]
 
 	// check to see if we are now at the goal node
 	if d.CurrNode == d.G.goalNode {
 		return d.CurrNode, true, nil
 	}
 
-	// remove the element from the beginning of the list
-	d.queue = d.queue[:len(d.queue)-1]
+	// remove the element from the end of the list
+	d.queue = d.queue[1:]
 
 	for _, child := range d.GenerateChildren() {
 		// make sure we haven't been here before
@@ -46,7 +46,8 @@ func (d *DFS) StepSearch() (int, bool, error) {
 		}
 
 		// Push to the queue
-		d.queue = append(d.queue, child)
+		d.queue = append(d.queue, append([]int{child}, d.queue[:]...)...)
+		// d.queue = append(d.queue, child)
 	}
 
 	return d.CurrNode, false, nil
