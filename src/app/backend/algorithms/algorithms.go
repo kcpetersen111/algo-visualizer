@@ -16,12 +16,16 @@ type Graph struct {
 	adjacency [][]int
 	startNode int
 	goalNode  int
+	visited   []int
 }
 
 func (g *Graph) SetSize(size int) int {
 	g.size = size
 	for i := 0; i < size; i++ {
 		a := make([]int, size)
+		for j := range a {
+			a[j] = -1
+		}
 		g.adjacency = append(g.adjacency, a)
 	}
 
