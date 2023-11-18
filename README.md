@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project was build for a 24 hour hackathon.  We built this to give students a graphical representation of some common graph exploration algorithms. We do this by allowing users to create nodes and add connections between them. Then users can run the algorithms and the nodes will light up based on where the active node is currently.
 
 ## Getting Started
 
