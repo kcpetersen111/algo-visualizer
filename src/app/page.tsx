@@ -43,7 +43,7 @@ export default function Home() {
 
   }
 
-  const selectNode = (title: string) => {
+  const selectNode = () => {
     setTool("select");
   }
 
@@ -104,14 +104,19 @@ export default function Home() {
     
     setNodes(tempNodes);
 
-}
+  }
+
+  const playNode = () => {
+    setTool("play");
+  }
+
 
   return (
     <main>
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} tool={tool} />
+        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} playNode={playNode} tool={tool} />
       </div>
     </main>
   )
