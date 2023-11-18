@@ -16,12 +16,6 @@ export default function Home() {
   }
 
   const connectNode = (title: string) => {
-    const tempNodes = nodes.filter(node => node.id !== id);
-
-    setNodes([]);
-    
-    setNodes(tempNodes.slice());
-    // setNodes(prev => prev.filter(node => node.id !== id));
   }
 
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
@@ -78,7 +72,7 @@ export default function Home() {
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} triggerDelete={triggerDelete} setPosition={setPosition} removable={removable} />
-        <ToolBar addNode={addNode} removeNode={() => setRemovable(true)} />
+        <ToolBar addNode={addNode} removeNode={() => setRemovable(true)} connectNode={connectNode} />
       </div>
     </main>
   )
