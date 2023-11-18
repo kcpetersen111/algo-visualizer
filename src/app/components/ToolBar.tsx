@@ -8,7 +8,7 @@ type ToolBarProps = {
     nextNode: Function;
 }
 
-export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode, nextNode }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode }: ToolBarProps) => {
     return (
         <>
             <div className="flex flex-col h-full w-72 border-2">
