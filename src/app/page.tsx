@@ -147,7 +147,22 @@ export default function Home() {
         websocket?.send(JSON.stringify(connectionMessage));
       })
 
-      websocket?.send(JSON.stringify({ next: 0 }));
+      let done = false;
+
+      while (!done) {
+        websocket?.send(JSON.stringify({ next: 0 }));
+  
+        if (websocket) {
+          websocket.onmessage = (e) => {
+            console.log(e.data);
+            done = JSON.parse(e.data).visiting.done ?? false;
+          }
+        }
+
+      }
+
+
+
     }
   }
 
