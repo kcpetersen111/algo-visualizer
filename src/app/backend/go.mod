@@ -1,4 +1,4 @@
-module algoVis
+module github.com/kcpetersen111/algo-visualizer/src/app/backend/algoVis
 
 go 1.20
 
