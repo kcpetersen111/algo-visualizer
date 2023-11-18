@@ -2,7 +2,6 @@ package algorithms
 
 import (
 	"errors"
-	"fmt"
 )
 
 type DFS struct {
@@ -52,7 +51,6 @@ func (d *DFS) StepSearch() (int, bool, error) {
 	}
 	// Push to the queue
 	d.queue = append(temp, d.queue...)
-	fmt.Printf("queue: %+v\n", d.queue)
 
 	return d.CurrNode, false, nil
 }
