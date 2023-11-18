@@ -3,14 +3,21 @@
 import { NavBar } from './components/NavBar'
 import { ToolBar } from './components/ToolBar'
 import { Connection, Sandbox, TreeNode } from './components/Sandbox'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [nodes, setNodes] = useState<TreeNode[]>([])
   const [connections, setConnections] = useState<Connection[]>([]);
   const [idCount, setIDCount] = useState(0);
-  const [tool, setTool] = useState("");
+  const [tool, setTool] = useState("add");
   const [connect, setConnect] = useState<number[]>([]);
+  const [websocket, setWebsocket] = useState<WebSocket>();
+  const [type, setType] = useState<string>("bfs");
+
+  useEffect(() => {
+    setWebsocket(new WebSocket("ws://0.0.0.0:3410/ws"));
+  }, []);
+
 
   const activateAdd = () => {
     setTool("add");
@@ -20,8 +27,8 @@ export default function Home() {
     setTool("connect");
   }
   
-  const addNode = (title: string) => {
-    setNodes(nodes => [...nodes, { id: idCount, title: idCount.toString(), connected: false, x: 0, y: 0 }]);
+  const addNode = (x: number, y: number) => {
+    setNodes(nodes => [...nodes, { id: idCount, title: idCount.toString(), connected: false, x: x-40, y: y-40 }]);
     setIDCount(idCount + 1);
   }
 
@@ -41,11 +48,19 @@ export default function Home() {
       }
     }
 
-
   }
 
-  const selectNode = (title: string) => {
+  const selectNode = () => {
     setTool("select");
+  }
+
+  const nextNode = (title: number) => {
+    // if (nextNode == -1) {
+    //    There is no next node 
+    // } else {
+    //     Pick the node that the backend
+    //     returns. Use node ids?
+    // }
   }
 
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
@@ -96,15 +111,49 @@ export default function Home() {
     
     setNodes(tempNodes);
 
-}
+  }
+
+  const activatePlay = () => {
+    setTool("play");
+  }
+
+  const playNode = () => {
+    if (connections.length > 0) {
+
+      const createMessage = {
+        create: {
+          searchType: type,
+          size: connections.length,
+          startNode: connections[0].from,
+          endNode: connections[0].to,
+        },
+      }
+
+      websocket?.send(JSON.stringify(createMessage));
+
+      connections.map((conn, index) => {
+        const connectionMessage = {
+          connection: {
+            fromNode: conn.from,
+            toNode: conn.to,
+          }
+        }
+
+        websocket?.send(JSON.stringify(connectionMessage));
+      })
+
+      websocket?.send(JSON.stringify({ next: 0 }));
+    }
+  }
+
 
   return (
     <main>
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} />
+        <ToolBar settings={() => {}} activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} activatePlay={activatePlay} playNode={playNode} tool={tool} setType={setType} />
       </div>
     </main>
-  )
+  );
 }
