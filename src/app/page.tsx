@@ -15,6 +15,15 @@ export default function Home() {
     setIDCount(idCount + 1);
   }
 
+  const connectNode = (title: string) => {
+    const tempNodes = nodes.filter(node => node.id !== id);
+
+    setNodes([]);
+    
+    setNodes(tempNodes.slice());
+    // setNodes(prev => prev.filter(node => node.id !== id));
+  }
+
   const triggerDelete = (id: number) => {
     const tempNodes = nodes.filter(node => node.id !== id);
 
