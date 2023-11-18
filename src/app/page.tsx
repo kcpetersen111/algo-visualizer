@@ -64,6 +64,10 @@ export default function Home() {
     // }
   }
 
+  const settings = (title: string) => {
+
+  }
+
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
     const adjustNodes = tempNodes.slice(index);
     console.log(adjustNodes);
