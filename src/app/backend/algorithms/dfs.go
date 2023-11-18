@@ -29,7 +29,7 @@ func (d *DFS) StepSearch() (int, bool, error) {
 	}
 
 	// remove the element from the beginning of the list
-	d.queue = d.queue[1:]
+	d.queue = d.queue[:len(d.queue)-1]
 
 	for _, child := range d.GenerateChildren() {
 		// make sure we haven't been here before
