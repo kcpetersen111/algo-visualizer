@@ -1,6 +1,7 @@
 import { IconPlus, IconX, IconLine, IconPointer, IconPlayerTrackNext, IconPlayerPlay, IconSettings, IconMoon, IconArrowBarBoth } from "@tabler/icons-react";
 import { useRef, useState } from "react";
 import Draggable from "react-draggable";
+import { DarkModeToggle } from "./DarkModeToggle";
 
 type ToolBarProps = {
     activateAdd: Function;
@@ -14,6 +15,7 @@ type ToolBarProps = {
     tool: string;
     setType: Function;
     toggleDarkLight: Function;
+    dark: boolean;
 }
 
 type RunAlgorithmPopoverProps = {
@@ -40,17 +42,16 @@ const RunAlgorithmPopover = ({ playNode, setType }: RunAlgorithmPopoverProps) =>
 
 type SettingsPopoverProps = {
     toggleDarkLight: Function;
+    dark: boolean;
 }
 
-const SettingsPopover = ({toggleDarkLight}: SettingsPopoverProps) => {
+const SettingsPopover = ({toggleDarkLight, dark}: SettingsPopoverProps) => {
     // Element
     return (
         <>
             <div className="flex flex-col w-fit h-fit absolute right-20 bottom-5 border-2 rounded-md p-4 dark:bg-slate-700 dark:border-gray-600">
                 <p>Settings:</p>
-                <button onClick={() => toggleDarkLight()}>
-                    <IconMoon />
-                </button>
+                <DarkModeToggle dark={dark} onClick={() => toggleDarkLight()} />
                 <button onClick={() => {}}>
                     <IconArrowBarBoth />
                 </button>
@@ -60,7 +61,7 @@ const SettingsPopover = ({toggleDarkLight}: SettingsPopoverProps) => {
     );
 }
 
-export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType, toggleDarkLight }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType, toggleDarkLight, dark }: ToolBarProps) => {
 
     const buttonStyles = "hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg p-2 my-2 "
 
@@ -99,7 +100,7 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
 
                 <div className="flex flex-col">
                     <div className="flex flex-row">
-                        {settingsPopover && <SettingsPopover toggleDarkLight={toggleDarkLight} />}
+                        {settingsPopover && <SettingsPopover toggleDarkLight={toggleDarkLight} dark={dark} />}
                         <button className={buttonStyles + (tool === "settings" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {settings(); setSettingsPopover(!settingsPopover); console.log('settings')}}>
                             <IconSettings />
                         </button>

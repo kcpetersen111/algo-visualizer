@@ -169,6 +169,7 @@ export default function Home() {
           tool={tool} 
           setType={setType}
           toggleDarkLight={toggleDarkLight}
+          dark={dark}
         />
       </div>
     </main>
