@@ -45,7 +45,7 @@ export const Sandbox = ({ nodes, addNode, connectNode, connections, triggerDelet
                     }
                 }} 
                 id="sandbox" 
-                className="h-full w-full relative"
+                className="h-full w-full relative dark:bg-slate-950"
             >
                 {connections.map((conn, index) => (                        
                     <Xarrow key={index} showHead={true} start={conn.from.toString()} end={conn.to.toString()} />

@@ -13,6 +13,7 @@ type ToolBarProps = {
     settings: Function;
     tool: string;
     setType: Function;
+    toggleDarkLight: Function;
 }
 
 type RunAlgorithmPopoverProps = {
@@ -25,9 +26,9 @@ const RunAlgorithmPopover = ({ playNode, setType }: RunAlgorithmPopoverProps) =>
 
     return (
         <>
-            <div className="flex flex-col w-fit h-fit absolute right-20 border-2 rounded-md p-4">
+            <div className="flex flex-col w-fit h-fit absolute right-20 border-2 rounded-md p-4 dark:bg-slate-700 dark:border-gray-600">
                 <p>Choose an Algorithm to run:</p>
-                <select name="yup" className="w-fit">
+                <select name="yup" className="w-fit bg-transparent">
                     <option onClick={() => setType("bfs")}>Breadth First Search</option>
                     <option onClick={() => setType("dfs")}>Depth First Search</option>
                 </select>
@@ -37,13 +38,17 @@ const RunAlgorithmPopover = ({ playNode, setType }: RunAlgorithmPopoverProps) =>
     );
 }
 
-const SettingsPopover = () => {
+type SettingsPopoverProps = {
+    toggleDarkLight: Function;
+}
+
+const SettingsPopover = ({toggleDarkLight}: SettingsPopoverProps) => {
     // Element
     return (
         <>
-            <div className="flex flex-col w-fit h-fit absolute right-20 bottom-5 border-2 rounded-md p-4">
+            <div className="flex flex-col w-fit h-fit absolute right-20 bottom-5 border-2 rounded-md p-4 dark:bg-slate-700 dark:border-gray-600">
                 <p>Settings:</p>
-                <button onClick={() => {}}>
+                <button onClick={() => toggleDarkLight()}>
                     <IconMoon />
                 </button>
                 <button onClick={() => {}}>
@@ -55,9 +60,9 @@ const SettingsPopover = () => {
     );
 }
 
-export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, nextNode, activatePlay, playNode, settings, tool, setType, toggleDarkLight }: ToolBarProps) => {
 
-    const buttonStyles = "hover:bg-slate-200 rounded-lg p-2 my-2 "
+    const buttonStyles = "hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg p-2 my-2 "
 
     const nodeRef = useRef(null);
     
@@ -66,27 +71,27 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
 
     return (
         <>
-            <div ref={nodeRef} className="flex flex-col h-full w-fit p-2 divide-transparent border-2 justify-between">
+            <div ref={nodeRef} className="flex flex-col h-full w-fit p-2 divide-transparent border-2 justify-between dark:bg-slate-700 dark:border-none dark:text-white">
                 <div className="flex flex-col">
                 
-                    <button className={buttonStyles + (tool === "add" ? "bg-slate-200" : "bg-transparent")} onClick={() => activateAdd()}>
+                    <button className={buttonStyles + (tool === "add" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => activateAdd()}>
                         <IconPlus />
                     </button>
-                    <button className={buttonStyles + (tool === "remove" ? "bg-slate-200" : "bg-transparent")} onClick={() => {removeNode(); console.log('remove')}}>
+                    <button className={buttonStyles + (tool === "remove" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {removeNode(); console.log('remove')}}>
                         <IconX />
                     </button>
-                    <button className={buttonStyles + (tool === "connect" ? "bg-slate-200" : "bg-transparent")} onClick={() => {activateConnect(); console.log('connect')}}>
+                    <button className={buttonStyles + (tool === "connect" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {activateConnect(); console.log('connect')}}>
                         <IconLine />
                     </button>
-                    <button className={buttonStyles + (tool === "select" ? "bg-slate-200" : "bg-transparent")} onClick={() => {selectNode(); console.log('select')}}>
+                    <button className={buttonStyles + (tool === "select" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {selectNode(); console.log('select')}}>
                         <IconPointer />
                     </button>
-                    <button className={buttonStyles + (tool === "next" ? "bg-slate-200" : "bg-transparent")} onClick={() => {nextNode(); console.log('next')}}>
+                    <button className={buttonStyles + (tool === "next" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {nextNode(); console.log('next')}}>
                         <IconPlayerTrackNext />
                     </button>
                     <div className="flex flex-row">
                         {playPopover && <RunAlgorithmPopover playNode={playNode} setType={setType} />}
-                        <button className={buttonStyles + (tool === "play" ? "bg-slate-200" : "bg-transparent")} onClick={() => {activatePlay(); setPlayPopover(!playPopover); console.log('play')}}>
+                        <button className={buttonStyles + (tool === "play" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {activatePlay(); setPlayPopover(!playPopover); console.log('play')}}>
                             <IconPlayerPlay />
                         </button>
                     </div>
@@ -94,8 +99,8 @@ export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode, 
 
                 <div className="flex flex-col">
                     <div className="flex flex-row">
-                        {settingsPopover && <SettingsPopover />}
-                        <button className={buttonStyles + (tool === "settings" ? "bg-slate-200" : "bg-transparent")} onClick={() => {settings(); setSettingsPopover(!settingsPopover); console.log('settings')}}>
+                        {settingsPopover && <SettingsPopover toggleDarkLight={toggleDarkLight} />}
+                        <button className={buttonStyles + (tool === "settings" ? "bg-slate-200 dark:bg-slate-800" : "bg-transparent")} onClick={() => {settings(); setSettingsPopover(!settingsPopover); console.log('settings')}}>
                             <IconSettings />
                         </button>
                     </div>

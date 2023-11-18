@@ -13,6 +13,7 @@ export default function Home() {
   const [connect, setConnect] = useState<number[]>([]);
   const [websocket, setWebsocket] = useState<WebSocket>();
   const [type, setType] = useState<string>("bfs");
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
     setWebsocket(new WebSocket("ws://0.0.0.0:3410/ws"));
@@ -146,13 +147,29 @@ export default function Home() {
     }
   }
 
+  const toggleDarkLight = () => {
+    setDark(!dark);
+  }
+
 
   return (
-    <main>
+    <main className={dark ? "dark" : ""}>
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar settings={() => {}} activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} activatePlay={activatePlay} playNode={playNode} tool={tool} setType={setType} />
+        <ToolBar 
+          settings={() => {}} 
+          activateAdd={activateAdd} 
+          removeNode={() => setTool("remove")} 
+          activateConnect={activateConnect} 
+          selectNode={selectNode} 
+          nextNode={nextNode} 
+          activatePlay={activatePlay} 
+          playNode={playNode} 
+          tool={tool} 
+          setType={setType}
+          toggleDarkLight={toggleDarkLight}
+        />
       </div>
     </main>
   );
