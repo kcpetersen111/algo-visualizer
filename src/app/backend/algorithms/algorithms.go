@@ -1,8 +1,8 @@
 package algorithms
 
 type Search interface {
-	StepSearch() int // call the actual algo search
-	NextNode() int   // this should be on the actual search
+	StepSearch() (int, bool, error) // call the actual algo search
+	NextNode() int                  // this should be on the actual search
 }
 
 func NewBFS(graph Graph) BFS {
