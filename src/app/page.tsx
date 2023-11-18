@@ -15,15 +15,28 @@ export default function Home() {
     setIDCount(idCount + 1);
   }
 
-  const triggerDelete = (id: number) => {
-    const tempNodes = nodes.filter(node => node.id !== id);
+  const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
+    const adjustNodes = tempNodes.slice(index);
+    console.log(adjustNodes);
 
+    adjustNodes.forEach((n) => {
+      setPosition(n.id, n.x, n.y + offset);
+    });
+  }
+
+  const triggerDelete = (id: number) => {
+    
+    const tempNodes = nodes.filter(node => node.id !== id).slice();
+    
+    const index = nodes.findIndex(node => node.id === id);
+    shiftNode(80, index, tempNodes);
+    
     setNodes([]);
     
     setNodes(tempNodes.slice());
-    // setNodes(prev => prev.filter(node => node.id !== id));
     setRemovable(false);
-
+    
+    
   }
 
   const setPosition = (id: number, x: number, y: number) => {
@@ -35,26 +48,25 @@ export default function Home() {
       if (node.id === id) {
         tempNode.x = x;
         tempNode.y = y;
+        tempNode.id = id;
+        tempNode.title = node.title;
+        tempNode.connected = node.connected;
+
         insertIndex = index;
-        console.log(tempNode);
       }
     });
 
-
     tempNodes.splice(insertIndex, 1, tempNode);
+
+    console.log(tempNodes);
     
     setNodes(tempNodes);
 
-    // const node = nodes.filter(node => node.id === id)[0];
-    // if (node) {
-    //     node.x = x;
-    //     node.y = y;
-    // }
 }
 
   return (
     <main>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} triggerDelete={triggerDelete} setPosition={setPosition} removable={removable} />
         <ToolBar addNode={addNode} removeNode={() => setRemovable(true)} />
