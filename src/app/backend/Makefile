@@ -1,8 +1,7 @@
-all: build
-	run
+all: build run
 
 build:
-	go build
+	go build main.go
 
 run:
-	./algoVis 
+	./main
