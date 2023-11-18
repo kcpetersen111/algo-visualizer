@@ -1,13 +1,14 @@
-import { IconPlus, IconX, IconLine, IconPointer } from "@tabler/icons-react";
+import { IconPlus, IconX, IconLine, IconPointer, IconPlayerTrackNext } from "@tabler/icons-react";
 
 type ToolBarProps = {
     activateAdd: Function;
     removeNode: Function;
     connectNode: Function;
     selectNode: Function;
+    nextNode: Function;
 }
 
-export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode, nextNode }: ToolBarProps) => {
     return (
         <>
             <div className="flex flex-col h-full w-72 border-2">
@@ -22,6 +23,9 @@ export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode }: To
                 </button>
                 <button onClick={() => {selectNode(); console.log('select')}}>
                     <IconPointer />
+                </button>
+                <button onClick={() => {nextNode(); console.log('next')}}>
+                    <IconPlayerTrackNext />
                 </button>
             </div>
         </>

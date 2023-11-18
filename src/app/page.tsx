@@ -36,6 +36,15 @@ export default function Home() {
     setTool("select");
   }
 
+  const nextNode = (title: number) => {
+    if (nextNode == -1) {
+       //There is no next node 
+    } else {
+        //Pick the node that the backend
+        //returns. Use node ids?
+    }
+  }
+
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
     const adjustNodes = tempNodes.slice(index);
     console.log(adjustNodes);
@@ -90,7 +99,7 @@ export default function Home() {
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} connectNode={connectNode} selectNode={selectNode} />
+        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} connectNode={connectNode} selectNode={selectNode} nextNode={nextNode} />
       </div>
     </main>
   )
