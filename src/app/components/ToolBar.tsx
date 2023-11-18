@@ -46,10 +46,10 @@ const RunAlgorithmPopover = ({ playNode, setType, from, to, setFrom, setTo }: Ru
                     <option onClick={() => setType("dfs")}>Depth First Search</option>
                 </select>
                 <label className="mt-4">From:</label>
-                <input value={from} onChange={(e) => setFrom(e.target.value)} type="text" className="border-2 dark:text-slate-950" />
+                <input value={from} onChange={(e) => setFrom(Number(e.target.value))} type="text" className="border-2 dark:text-slate-950" />
 
                 <label className="mt-4">To:</label>
-                <input value={to} type="text" onChange={(e) => setTo(e.target.value)} className="border-2 dark:text-slate-950" />
+                <input value={to} type="text" onChange={(e) => setTo(Number(e.target.value))} className="border-2 dark:text-slate-950" />
                 <button onClick={() => playNode()}  className="mt-8 bg-blue-400 text-white rounded-md">Submit</button>
             </div>
         </>
