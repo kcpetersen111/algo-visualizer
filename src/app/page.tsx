@@ -56,6 +56,10 @@ export default function Home() {
     // }
   }
 
+  const settings = (title: string) => {
+
+  }
+
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
     const adjustNodes = tempNodes.slice(index);
     console.log(adjustNodes);
@@ -116,7 +120,7 @@ export default function Home() {
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
         <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} playNode={playNode} tool={tool} />
+        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} playNode={playNode} settings={settings} tool={tool} />
       </div>
     </main>
   )
