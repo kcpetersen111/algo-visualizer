@@ -2,17 +2,22 @@
 
 import { NavBar } from './components/NavBar'
 import { ToolBar } from './components/ToolBar'
-import { Sandbox, TreeNode } from './components/Sandbox'
+import { Connection, Sandbox, TreeNode } from './components/Sandbox'
 import { useState } from 'react'
 
 export default function Home() {
   const [nodes, setNodes] = useState<TreeNode[]>([])
+  const [connections, setConnections] = useState<Connection[]>([]);
   const [idCount, setIDCount] = useState(0);
   const [tool, setTool] = useState("");
   const [connect, setConnect] = useState<number[]>([]);
 
   const activateAdd = () => {
     setTool("add");
+  }
+
+  const activateConnect = () => {
+    setTool("connect");
   }
   
   const addNode = (title: string) => {
@@ -21,15 +26,22 @@ export default function Home() {
   }
 
   const connectNode = (id: number) => {
-    if (connect.length >= 2) {
+
+    if (id === -1) {
       setConnect([]);
+    } else {
+      const tempConnect = [...connect, id];
+      setConnect(tempConnect);
+      console.log(tempConnect);
+  
+      if (tempConnect.length === 2) {
+        setConnections(connections => [...connections, { from: tempConnect[0], to: tempConnect[1] }]);
+        setConnect([]);
+        console.log('here');
+      }
     }
 
-    setConnect(connect => [...connect, id]);
 
-    if (connect.length >= 2) {
-      
-    }
   }
 
   const selectNode = (title: string) => {
@@ -65,7 +77,8 @@ export default function Home() {
     
     setNodes(tempNodes.slice());
     // setTool(false);
-    
+
+    setConnections(connections.filter(conn => conn.from !== id && conn.to !== id));
     
   }
 
@@ -98,8 +111,8 @@ export default function Home() {
     <main>
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
-        <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} connectNode={connectNode} selectNode={selectNode} nextNode={nextNode} />
+        <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
+        <ToolBar activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode}/>
       </div>
     </main>
   )

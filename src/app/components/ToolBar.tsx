@@ -3,7 +3,7 @@ import { IconPlus, IconX, IconLine, IconPointer, IconPlayerTrackNext } from "@ta
 type ToolBarProps = {
     activateAdd: Function;
     removeNode: Function;
-    connectNode: Function;
+    activateConnect: Function;
     selectNode: Function;
     nextNode: Function;
 }
@@ -18,7 +18,7 @@ export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode, next
                 <button onClick={() => {removeNode(); console.log('remove')}}>
                     <IconX />
                 </button>
-                <button onClick={() => {connectNode(); console.log('connect')}}>
+                <button onClick={() => {activateConnect(); console.log('connect')}}>
                     <IconLine />
                 </button>
                 <button onClick={() => {selectNode(); console.log('select')}}>
