@@ -18,13 +18,22 @@ func ping(w http.ResponseWriter, _ *http.Request) {
 	w.Write(b.Bytes())
 }
 
+func ws(w http.ResponseWriter, _ *http.Request) {
+	return
+}
+
+func addRoutes(router *mux.Router) {
+	router.HandleFunc("/ping", ping)
+	router.HandleFunc("/ws", ws)
+}
+
 func main() {
 	host := flag.String("host", "0.0.0.0", "The host to listen at")
 	port := flag.String("port", "3410", "The host to listen at")
 	flag.Parse()
 
 	router := mux.NewRouter()
-	router.HandleFunc("/ping", ping)
+	addRoutes(router)
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:4173", "http://binary141.com:4173", "http://localhost:5173"},
@@ -33,10 +42,11 @@ func main() {
 	})
 	Addr := strings.Builder{}
 	Addr.WriteString(*host)
-	
+	Addr.WriteString(":")
+	Addr.WriteString(*port)
 	srv := &http.Server{
 		Handler:      c.Handler(router),
-		Addr:         ,
+		Addr:         Addr.String(),
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
