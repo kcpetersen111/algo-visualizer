@@ -3,11 +3,11 @@ import { IconPlus, IconX, IconLine, IconPointer } from "@tabler/icons-react";
 type ToolBarProps = {
     activateAdd: Function;
     removeNode: Function;
-    connectNode: Function;
+    activateConnect: Function;
     selectNode: Function;
 }
 
-export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode }: ToolBarProps) => {
+export const ToolBar = ({ activateAdd, removeNode, activateConnect, selectNode }: ToolBarProps) => {
     return (
         <>
             <div className="flex flex-col h-full w-72 border-2">
@@ -17,7 +17,7 @@ export const ToolBar = ({ activateAdd, removeNode, connectNode, selectNode }: To
                 <button onClick={() => {removeNode(); console.log('remove')}}>
                     <IconX />
                 </button>
-                <button onClick={() => {connectNode(); console.log('connect')}}>
+                <button onClick={() => {activateConnect(); console.log('connect')}}>
                     <IconLine />
                 </button>
                 <button onClick={() => {selectNode(); console.log('select')}}>
