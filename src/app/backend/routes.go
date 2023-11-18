@@ -132,6 +132,11 @@ func ws(w http.ResponseWriter, r *http.Request) {
 					log.Printf("error while trying to set impossible: %v", err)
 					return
 				}
+				res, err = sjson.Set(res, "visiting.id", mapToFrontend[step])
+				if err != nil {
+					log.Printf("error while tryinh to set id: %v", err)
+					return
+				}
 				conn.WriteMessage(1, []byte(res))
 				return
 			}
