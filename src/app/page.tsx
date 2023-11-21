@@ -13,6 +13,10 @@ export default function Home() {
   const [connect, setConnect] = useState<number[]>([]);
   const [websocket, setWebsocket] = useState<WebSocket>();
   const [type, setType] = useState<string>("bfs");
+  const [dark, setDark] = useState(false);
+  const [visiting, setVisiting] = useState<number>();
+  const [from, setFrom] = useState<number>();
+  const [to, setTo] = useState<number>();
 
   useEffect(() => {
     setWebsocket(new WebSocket("ws://0.0.0.0:3410/ws"));
@@ -54,13 +58,30 @@ export default function Home() {
     setTool("select");
   }
 
-  const nextNode = (title: number) => {
-    // if (nextNode == -1) {
-    //    There is no next node 
-    // } else {
-    //     Pick the node that the backend
-    //     returns. Use node ids?
-    // }
+  const nextNode = async () => {
+
+    let done = false;
+
+    websocket?.send(JSON.stringify({ next: 0 }));
+    
+    if (websocket) {
+      const response = await new Promise<string>((resolve) => {
+        websocket.onmessage = function(e) {
+          // console.log(e.data);
+          // done = JSON.parse(e.data).visiting.done === true || JSON.parse(e.data).visiting.impossible === true;
+          resolve(e.data);
+        };
+      })
+      .then((visiting) => {
+        console.log(visiting);
+        return JSON.parse(visiting);
+      });
+      setVisiting((response as stupid).visiting.id);
+    }
+  }
+
+  const settings = (title: string) => {
+
   }
 
   const shiftNode = (offset: number, index: number, tempNodes: TreeNode[]) => {
@@ -117,15 +138,24 @@ export default function Home() {
     setTool("play");
   }
 
-  const playNode = () => {
+  type visitingStupid = {
+    id: number;
+    done: boolean;
+    impossible: boolean;
+  }
+  type stupid = {
+    visiting: visitingStupid;
+  }
+
+  const setupPlayNode = () => {
     if (connections.length > 0) {
 
       const createMessage = {
         create: {
           searchType: type,
-          size: connections.length,
-          startNode: connections[0].from,
-          endNode: connections[0].to,
+          size: nodes.length,
+          startNode: from,
+          endNode: to,
         },
       }
 
@@ -141,18 +171,73 @@ export default function Home() {
 
         websocket?.send(JSON.stringify(connectionMessage));
       })
+    }
+  }
+
+  const playNode = async () => {
+
+      setupPlayNode();
+
+      let done = false;
 
       websocket?.send(JSON.stringify({ next: 0 }));
-    }
+      
+      while (!done) {
+        
+        if (websocket) {
+          const response = await new Promise<string>((resolve) => {
+            websocket.onmessage = function(e) {
+              // console.log(e.data);
+              // done = JSON.parse(e.data).visiting.done === true || JSON.parse(e.data).visiting.impossible === true;
+              resolve(e.data);
+            };
+          })
+          .then((visiting) => {
+            console.log(visiting);
+            return JSON.parse(visiting);
+          });
+
+          setVisiting((response as stupid).visiting.id);
+          done = (response as stupid).visiting.done === true || (response as stupid).visiting.impossible === true;
+        }
+
+        setTimeout(() => {websocket?.send(JSON.stringify({ next: 0 }))}, 1000);
+
+      }
+
+    setTimeout(()=>setVisiting(-1), 1000);
+
+    // websocket?.close();
+  }
+
+  const toggleDarkLight = () => {
+    setDark(!dark);
   }
 
 
   return (
-    <main>
+    <main className={dark ? "dark" : ""}>
       {/* <NavBar /> */}
       <div className='h-screen w-screen flex flex-row'>
-        <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} />
-        <ToolBar settings={() => {}} activateAdd={activateAdd} removeNode={() => setTool("remove")} activateConnect={activateConnect} selectNode={selectNode} nextNode={nextNode} activatePlay={activatePlay} playNode={playNode} tool={tool} setType={setType} />
+        <Sandbox nodes={nodes} addNode={addNode} connectNode={connectNode} connections={connections} triggerDelete={triggerDelete} setPosition={setPosition} tool={tool} visiting={visiting} />
+        <ToolBar 
+          settings={() => {}} 
+          activateAdd={activateAdd} 
+          removeNode={() => setTool("remove")} 
+          activateConnect={activateConnect} 
+          selectNode={selectNode} 
+          nextNode={() => {setupPlayNode(); nextNode();} }
+          activatePlay={activatePlay} 
+          playNode={playNode} 
+          tool={tool} 
+          setType={setType}
+          toggleDarkLight={toggleDarkLight}
+          dark={dark}
+          from={from}
+          to={to}
+          setFrom={setFrom}
+          setTo={setTo}
+        />
       </div>
     </main>
   );

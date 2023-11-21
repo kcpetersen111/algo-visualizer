@@ -32,7 +32,7 @@ export const TreeNode = ({ title, className, id, position, setPosition, onClick 
                     onClick={onClick}
                     id={id?.toString()}
                     className={`w-20 h-20 flex items-center justify-center rounded-full border-2 absolute ${className} ${grabbyHand ? "hover:cursor-grabbing" : "hover:cursor-grab"}`}>
-                    <h1>{title}</h1>
+                    <h1 className="dark:text-white">{title}</h1>
                 </div>
             </Draggable>
         </>

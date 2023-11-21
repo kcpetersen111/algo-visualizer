@@ -1,8 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project was build for a 24 hour hackathon.  We built this to give students a graphical representation of some common graph exploration algorithms. We do this by allowing users to create nodes and add connections between them. Then users can run the algorithms and the nodes will light up based on where the active node is currently.
 
 ## Getting Started
 
-First, run the development server:
+First, run the development frontend server:
 
 ```bash
 npm run dev
@@ -16,21 +16,22 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To run the backend service go to the `src/app/backend`:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+make
+# or
+go build && ./algoVis
+```
 
-## Learn More
+This will start a server with defaults og 0.0.0.0 and port 3410.
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Frontend 
+    - React.js
+    - Next.js
+    - Tailwind css
+### Backend
+    - go
+    - gorilla/websockets
